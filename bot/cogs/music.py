@@ -1,12 +1,13 @@
+import asyncio
+import datetime as dt
+import random
+import re
+import typing as t
+from enum import Enum
+
+import aiohttp
 import discord
 import wavelink
-import typing as t
-import re
-import datetime as dt
-import asyncio
-import random
-from enum import Enum
-import aiohttp
 from discord.ext import commands
 
 URL_REGEX = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
@@ -629,7 +630,7 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
 	@commands.command(name = "adveq", aliases = ["aeq"])
 	async def adveq_command(self, ctx, band: int, gain: float):
-		player = self,get_player(ctx)
+		player = self.get_player(ctx)
 
 		if not 1 <= band <= 15 and band not in HZ_BANDS:
 			raise NonExistentEQBand
